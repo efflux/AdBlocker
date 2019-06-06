@@ -1,0 +1,557 @@
+<!-- Search for 'ChangedFromDefault' to see changed and not disabled & hidden configs -->
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_config version="2.0" init="Changes">
+  <!-- CloudServices.xml -->
+  <Setting Name="CloudServices::Disabled" Invisible="1" Readonly="1" Required="1" Valid="1">
+    <Description Translatable="1">Defines if the communication between this system and OTRS Group servers that provide cloud services is possible. If set to 'Disable cloud services', some functionality will be lost such as system registration, support data sending, upgrading to and use of OTRS Business Solution™, OTRS Verify™, OTRS News and product News dashboard widgets, among others.</Description>
+    <Navigation>CloudService</Navigation>
+    <Value>
+      <Item ValueType="Select" SelectedID="1">
+        <Item ValueType="Option" Value="0" Translatable="1">Enable cloud services</Item>
+        <Item ValueType="Option" Value="1" Translatable="1">Disable cloud services</Item>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NotifyModule###1000-CloudServicesDisabled" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines the module to display a notification if cloud services are disabled.</Description>
+    <Navigation>Frontend::Agent::FrontendNotification</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::Notification::AgentCloudServicesDisabled</Item>
+        <Item Key="Group">admin</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="CloudService::Admin::Module###100-SupportDataCollector" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Cloud service admin module registration for the transport layer.</Description>
+    <Navigation>CloudService::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name" Translatable="1">Support data collector</Item>
+        <Item Key="Description" Translatable="1">Configure sending of support data to OTRS Group for improved support.</Item>
+        <Item Key="ConfigDialog">AdminCloudServiceSupportDataCollector</Item>
+        <Item Key="Icon">fa fa-compass</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AdminCloudServiceSupportDataCollector" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="Group">
+            <Array>
+              <Item>admin</Item>
+            </Array>
+          </Item>
+          <Item Key="Description">Admin</Item>
+          <Item Key="Title" Translatable="1">Support data collector</Item>
+          <Item Key="NavBarName"></Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Loader::Module::AdminCloudServiceSupportDataCollector###002-CloudServices" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Loader module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::Loader</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="CSS">
+          <Array>
+            <Item>Core.Agent.Admin.CloudService.SupportDataCollector.css</Item>
+          </Array>
+        </Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Navigation###AdminCloudServiceSupportDataCollector###002-CloudServices" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Main menu item registration.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::MainMenu</Navigation>
+    <Value>
+      <Array>
+        <DefaultItem ValueType="FrontendNavigation">
+          <Hash>
+          </Hash>
+        </DefaultItem>
+      </Array>
+    </Value>
+  </Setting>
+  <Setting Name="CloudService::Admin::Module###200-SMS" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Cloud service admin module registration for the transport layer.</Description>
+    <Navigation>CloudService::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name" Translatable="1">SMS</Item>
+        <Item Key="Description" Translatable="1">This will allow the system to send text messages via SMS.</Item>
+        <Item Key="ConfigDialog">AdminCloudServiceSMS</Item>
+        <Item Key="IsOTRSBusiness">1</Item>
+        <Item Key="Icon">fa fa-mobile</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <!-- /CloudServices.xml -->
+  <!-- Daemon.xml -->
+  <Setting Name="Daemon::SchedulerCronTaskManager::Task###OTRSBusinessEntitlementCheck" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Checks the entitlement status of OTRS Business Solution™.</Description>
+    <Navigation>Daemon::SchedulerCronTaskManager::Task</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="TaskName">OTRSBusinessEntitlementCheck</Item>
+        <Item Key="Schedule">25,45 */1 * * *</Item>
+        <Item Key="Module">Kernel::System::Console::Command::Maint::OTRSBusiness::EntitlementCheck</Item>
+        <Item Key="Function">Execute</Item>
+        <Item Key="MaximumParallelInstances">1</Item>
+        <Item Key="Params">
+          <Array>
+          </Array>
+        </Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Daemon::SchedulerCronTaskManager::Task###OTRSBusinessAvailabilityCheck" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Checks the availability of OTRS Business Solution™ for this system.</Description>
+    <Navigation>Daemon::SchedulerCronTaskManager::Task</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="TaskName">OTRSBusinessAvailabilityCheck</Item>
+        <Item Key="Schedule">15,35,55 */1 * * *</Item>
+        <Item Key="Module">Kernel::System::Console::Command::Maint::OTRSBusiness::AvailabilityCheck</Item>
+        <Item Key="Function">Execute</Item>
+        <Item Key="MaximumParallelInstances">1</Item>
+        <Item Key="Params">
+          <Array>
+          </Array>
+        </Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <!-- /Daemon.xml -->
+  <!-- Framework.xml -->
+  <Setting Name="Frontend::NavigationModule###AdminSupportDataCollector" Required="0" Valid="1">
+    <Description Translatable="1">Admin area navigation for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::AdminOverview</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Group">
+          <Array>
+            <Item>admin</Item>
+          </Array>
+        </Item>
+        <Item Key="GroupRo">
+          <Array>
+          </Array>
+        </Item>
+        <Item Key="Module">Kernel::Output::HTML::NavBar::ModuleAdmin</Item>
+        <Item Key="Name" Translatable="1">Support Data Collector</Item>
+        <Item Key="Block">Administration</Item>    <!-- ChangedFromDefault: OTRSGroup -->
+        <Item Key="Description" Translatable="1">Manage support data.</Item>
+        <Item Key="IconBig">fa-search</Item>
+        <Item Key="IconSmall"></Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Secure::DisableBanner" Invisible="1" Readonly="1" Required="1" Valid="1">
+    <Description Translatable="1">If enabled, the OTRS version tag will be removed from the Webinterface, the HTTP headers and the X-Headers of outgoing mails. NOTE: If you change this option, please make sure to delete the cache.</Description>
+    <Navigation>Core</Navigation>
+    <Value>
+      <Item ValueType="Checkbox">1</Item>
+    </Value>
+  </Setting>
+  <Setting Name="DashboardBackend###0405-News" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines the parameters for the dashboard backend. "Limit" defines the number of entries displayed by default. "Group" is used to restrict access to the plugin (e. g. Group: admin;group1;group2;). "Default" indicates if the plugin is enabled by default or if the user needs to enable it manually. "CacheTTL" indicates the cache expiration period in minutes for the plugin. "Mandatory" determines if the plugin is always shown and can not be removed by agents.</Description>
+    <Navigation>Frontend::Agent::View::Dashboard</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::Dashboard::News</Item>
+        <Item Key="Title" Translatable="1">OTRS News</Item>
+        <Item Key="Description" Translatable="1">News about OTRS.</Item>
+        <Item Key="Block">ContentSmall</Item>
+        <Item Key="Limit">6</Item>
+        <Item Key="Group"></Item>
+        <Item Key="Default">1</Item>
+        <Item Key="CacheTTL">360</Item>
+        <Item Key="Mandatory">0</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AdminRegistration" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="Group">
+            <Array>
+              <Item>admin</Item>
+            </Array>
+          </Item>
+          <Item Key="Description">Admin</Item>
+          <Item Key="Title" Translatable="1">System Registration</Item>
+          <Item Key="NavBarName">Admin</Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NavigationModule###AdminRegistration" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Admin area navigation for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::AdminOverview</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Group">
+          <Array>
+            <Item>admin</Item>
+          </Array>
+        </Item>
+        <Item Key="GroupRo">
+          <Array>
+          </Array>
+        </Item>
+        <Item Key="Module">Kernel::Output::HTML::NavBar::ModuleAdmin</Item>
+        <Item Key="Name" Translatable="1">System Registration</Item>
+        <Item Key="Block">OTRSGroup</Item>
+        <Item Key="Description" Translatable="1">Manage system registration.</Item>
+        <Item Key="IconBig">fa-edit</Item>
+        <Item Key="IconSmall"></Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AdminCloudServices" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="Group">
+            <Array>
+              <Item>admin</Item>
+            </Array>
+          </Item>
+          <Item Key="Description">Admin</Item>
+          <Item Key="Title" Translatable="1">Cloud Services</Item>
+          <Item Key="NavBarName">Admin</Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Loader::Module::AdminCloudServices###001-Framework" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Loader module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::Loader</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="CSS">
+          <Array>
+            <Item>Core.Agent.Admin.CloudServices.css</Item>
+          </Array>
+        </Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Navigation###AdminCloudServices###001-Framework" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Main menu item registration.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::MainMenu</Navigation>
+    <Value>
+      <Array>
+        <DefaultItem ValueType="FrontendNavigation">
+          <Hash>
+          </Hash>
+        </DefaultItem>
+      </Array>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NavigationModule###AdminCloudServices" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Admin area navigation for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::AdminOverview</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Group">
+          <Array>
+            <Item>admin</Item>
+          </Array>
+        </Item>
+        <Item Key="GroupRo">
+          <Array>
+          </Array>
+        </Item>
+        <Item Key="Module">Kernel::Output::HTML::NavBar::ModuleAdmin</Item>
+        <Item Key="Name" Translatable="1">Cloud Services</Item>
+        <Item Key="Block">OTRSGroup</Item>
+        <Item Key="Description" Translatable="1">Manage OTRS Group cloud services.</Item>
+        <Item Key="IconBig">fa-cloud</Item>
+        <Item Key="IconSmall"></Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Loader::Module::AdminOTRSBusiness###001-Framework" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Loader module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::Loader</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="CSS">
+          <Array>
+            <Item>Core.Agent.Admin.OTRSBusiness.css</Item>
+          </Array>
+        </Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Navigation###AdminOTRSBusiness###001-Framework" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Main menu item registration.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::MainMenu</Navigation>
+    <Value>
+      <Array>
+        <DefaultItem ValueType="FrontendNavigation">
+          <Hash>
+          </Hash>
+        </DefaultItem>
+      </Array>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NavigationModule###AdminOTRSBusiness" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Admin area navigation for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::AdminOverview</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Group">
+          <Array>
+            <Item>admin</Item>
+          </Array>
+        </Item>
+        <Item Key="GroupRo">
+          <Array>
+          </Array>
+        </Item>
+        <Item Key="Module">Kernel::Output::HTML::NavBar::ModuleAdmin</Item>
+        <Item Key="Name">OTRS Business Solution™</Item>
+        <Item Key="Block">OTRSGroup</Item>
+        <Item Key="Description" Translatable="1">Deploy and manage OTRS Business Solution™.</Item>
+        <Item Key="IconBig">fa-angle-double-up</Item>
+        <Item Key="IconSmall"></Item>
+        <Item Key="CssClass">OTRSBusiness</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AdminOTRSBusiness" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="Group">
+            <Array>
+              <Item>admin</Item>
+            </Array>
+          </Item>
+          <Item Key="Description">Admin</Item>
+          <Item Key="Title">OTRS Business Solution™</Item>
+          <Item Key="NavBarName">Admin</Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AgentOTRSBusiness" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+    <Navigation>Frontend::Agent::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="Group">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="Description">Agent</Item>
+          <Item Key="Title">OTRS Business Solution™</Item>
+          <Item Key="NavBarName"></Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Loader::Module::AgentOTRSBusiness###001-Framework" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Loader module registration for the agent interface.</Description>
+    <Navigation>Frontend::Agent::ModuleRegistration::Loader</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="CSS">
+          <Array>
+            <Item>Core.Agent.Admin.OTRSBusiness.css</Item>
+          </Array>
+        </Item>
+      </Hash>
+    </Value>
+  </Setting>
+    <Setting Name="Package::AllowNotVerifiedPackages" Invisible="1" Readonly="1" Required="1" Valid="1">
+    <Description Translatable="1">If this setting is enabled, it is possible to install packages which are not verified by OTRS Group. These packages could threaten your whole system!</Description>
+    <Navigation>Core::Package</Navigation>
+    <Value>
+      <Item ValueType="Checkbox">1</Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NotifyModule###1100-OTRSBusiness" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines the module to display a notification in different interfaces on different occasions for OTRS Business Solution™.</Description>
+    <Navigation>Frontend::Agent::FrontendNotification</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::Notification::AgentOTRSBusiness</Item>
+        <Item Key="Group">admin</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="CustomerFrontend::NotifyModule###1-OTRSBusiness" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines the module to display a notification in different interfaces on different occasions for OTRS Business Solution™.</Description>
+    <Navigation>Frontend::Customer::FrontendNotification</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::Notification::CustomerOTRSBusiness</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="OTRSBusiness::ReleaseChannel" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Specify the channel to be used to fetch OTRS Business Solution™ updates. Warning: Development releases might not be complete, your system might experience unrecoverable errors and on extreme cases could become unresponsive!</Description>
+    <Navigation>Core::Package</Navigation>
+    <Value>
+      <Item ValueType="Select" SelectedID="1">
+        <Item ValueType="Option" Value="0" Translatable="1">Development</Item>
+        <Item ValueType="Option" Value="1" Translatable="1">Stable</Item>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Package::AllowNotVerifiedPackages" Invisible="1" Readonly="1" Required="1" Valid="1">
+    <Description Translatable="1">If this setting is enabled, it is possible to install packages which are not verified by OTRS Group. These packages could threaten your whole system!</Description>
+    <Navigation>Core::Package</Navigation>
+    <Value>
+      <Item ValueType="Checkbox">1</Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NotifyModule###8000-PackageManager-CheckNotVerifiedPackages" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines the module to display a notification in the agent interface, if the installation of not verified packages is activated (only shown to admins).</Description>
+    <Navigation>Frontend::Agent::FrontendNotification</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::Notification::PackageManagerCheckNotVerifiedPackages</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Package::ShowFeatureAddons" Invisible="1" Readonly="1" Required="1" Valid="1">
+    <Description Translatable="1">Toggles display of OTRS FeatureAddons list in PackageManager.</Description>
+    <Navigation>Core::Package</Navigation>
+    <Value>
+      <Item ValueType="Checkbox">0</Item>
+    </Value>
+  </Setting>
+  <Setting Name="DashboardBackend###0000-ProductNotify" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines the parameters for the dashboard backend. "Group" is used to restrict access to the plugin (e. g. Group: admin;group1;group2;). "Default" indicates if the plugin is enabled by default or if the user needs to enable it manually. "CacheTTLLocal" defines the cache expiration period in minutes for the plugin. "Mandatory" determines if the plugin is always shown and can not be removed by agents.</Description>
+    <Navigation>Frontend::Agent::View::Dashboard</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::Dashboard::ProductNotify</Item>
+        <Item Key="Title" Translatable="1">Product News</Item>
+        <Item Key="Description" Translatable="1">News about OTRS releases!</Item>
+        <Item Key="Block">ContentLarge</Item>
+        <Item Key="Group">admin</Item>
+        <Item Key="Default">1</Item>
+        <Item Key="CacheTTLLocal">1440</Item>
+        <Item Key="Mandatory">0</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <!-- /Framework.xml -->
+  <!-- Ticket.xml -->
+  <Setting Name="Ticket::Frontend::MenuModule###999-TeaserAttachmentView" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Shows a teaser link in the menu for the ticket attachment view of OTRS Business Solution™.</Description>
+    <Navigation>Frontend::Agent::View::TicketZoom::MenuModule</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::TicketMenu::TeaserAttachmentView</Item>
+        <Item Key="Name" Translatable="1">All attachments (OTRS Business Solution™)</Item>
+        <Item Key="Description" Translatable="1">View all attachments of the current ticket</Item>
+        <Item Key="Action">AgentTicketZoom</Item>
+        <Item Key="Link">Action=AgentTicketZoom;TicketID=[% Data.TicketID | html %]</Item>
+        <Item Key="Target"></Item>
+        <Item Key="Class">OTRSBusinessRequired</Item>
+        <Item Key="PopupType"></Item>
+        <Item Key="ClusterName" Translatable="1">Miscellaneous</Item>
+        <Item Key="ClusterPriority">999</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Notification::Transport###NotificationView" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines all the parameters for this notification transport.</Description>
+    <Navigation>Frontend::Admin::View::NotificationEvent</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::System::Ticket::Event::NotificationEvent::Transport::NotificationView</Item>
+        <Item Key="Name" Translatable="1">Web View</Item>
+        <Item Key="Icon">fa fa-th-list</Item>
+        <Item Key="Prio">110</Item>
+        <Item Key="IsOTRSBusinessTransport">1</Item>
+        <Item Key="AgentEnabledByDefault">0</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Notification::Transport###SMS" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines all the parameters for this notification transport.</Description>
+    <Navigation>Frontend::Admin::View::NotificationEvent</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::System::Ticket::Event::NotificationEvent::Transport::SMS</Item>
+        <Item Key="Name" Translatable="1">SMS (Short Message Service)</Item>
+        <Item Key="Icon">fa fa-mobile</Item>
+        <Item Key="Prio">120</Item>
+        <Item Key="IsOTRSBusinessTransport">1</Item>
+        <Item Key="AgentEnabledByDefault">0</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <!-- /Ticket.xml -->
+  <!-- Calendar.xml -->
+  <Setting Name="AppointmentNotification::Transport###NotificationView" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines all the parameters for this notification transport.</Description>
+    <Navigation>Frontend::Admin::View::NotificationEvent</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::System::Calendar::Event::Transport::NotificationView</Item>
+        <Item Key="Name" Translatable="1">Web View</Item>
+        <Item Key="Icon">fa fa-th-list</Item>
+        <Item Key="Prio">110</Item>
+        <Item Key="IsOTRSBusinessTransport">1</Item>
+        <Item Key="AgentEnabledByDefault">0</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="AppointmentNotification::Transport###SMS" Invisible="1" Readonly="1" Required="1" Valid="0">
+    <Description Translatable="1">Defines all the parameters for this notification transport.</Description>
+    <Navigation>Frontend::Admin::View::NotificationEvent</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::System::Calendar::Event::Transport::SMS</Item>
+        <Item Key="Name" Translatable="1">SMS (Short Message Service)</Item>
+        <Item Key="Icon">fa fa-mobile</Item>
+        <Item Key="Prio">120</Item>
+        <Item Key="IsOTRSBusinessTransport">1</Item>
+        <Item Key="AgentEnabledByDefault">0</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <!-- TODO: Frontend::Navigation###AgentAppointmentCalendarOverview###002-Calendar -->
+  <!-- /Calendar.xml -->
+</otrs_config>
