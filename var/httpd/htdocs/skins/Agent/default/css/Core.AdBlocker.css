@@ -1,0 +1,21 @@
+/*
+ * Copyright (C) 2019–present Efflux GmbH, https://efflux.de/
+ * Part of the AdBlocker package.
+ *
+ * This software comes with ABSOLUTELY NO WARRANTY. For details, see
+ * the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
+ */
+
+.Setting a.OTRSBusinessRequired.SettingHistory.Button   /* AdminSystemConfigurationGroup: Hide "History (OTRS Business Solution™)". */
+, a[href$="Action=AgentNotificationView"]  /* Global links: Hide private notifications on avatar click. */
+, a[href$="Action=AdminOTRSBusiness"]  /* AgentAppointmentCalendarOverview: Disable the upgrade to business button */
+, #NavigationContainer .OTRSBusinessRequired /* Global navigation: Hide business calendar and reports. */
+, #nav-Calendar-ResourceOverview\(OTRSBusinessSolution™\), #nav-Reports-Reports\(OTRSBusinessSolution™\)
+, #ExampleWebServices .FieldExplanation  /* AdminGenericInterfaceWebservice: Hide Ready2Adopt explanation. Files put in var/webservices/examples/*.yml will shown here. */
+, .AdminSupportDataCollector .SidebarColumn li > form  /* AdminSupportDataCollector: Hide cloud service disabled warning. */
+, .AdminSupportDataCollector .SidebarColumn li > .FieldExplanation.Error
+, .OTRSVerifyLogoBig  /* Don't show the big verified logo. */
+{
+  display: none !important;
+}
