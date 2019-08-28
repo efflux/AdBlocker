@@ -4,12 +4,16 @@
   <!ENTITY internal_name "AdBlocker">
   <!ENTITY description_en "Blocks all OTRS Group advertisements and cuts off the daily communication between your system and the OTRS Group servers ('Phoning Home'). Does not include the ability to download free add-ons ('Freebies').">
   <!ENTITY description_de "Blockiert alle Werbungen der OTRS AG und trennt die tägliche Kommunikation Ihres Systems mit der OTRS AG ('Call Home'). Betrifft nicht die Möglichkeit, kostenlose Add-ons herunterzuladen ('Freebies').">
-  <!ENTITY database_en "<![CDATA[<i>None</i>]]>">
-  <!ENTITY database_de "<![CDATA[<i>Keine</i>]]>">
-  <!ENTITY deployment_en "<![CDATA[<i>Nothing</i> – ready to go!]]>">
-  <!ENTITY deployment_de "<![CDATA[<i>Nichts</i> – alles bereit!]]>">
-  <!ENTITY feedback_en "<![CDATA[Help us improve this add-ons by writing a review, reporting a bug, or submitting a feature request on the <a href='https://portal.efflux.de/' target='_blanke'>Customer Portal</a>.]]>">
-  <!ENTITY feedback_de "<![CDATA[Helfen Sie uns dieses Add-on zu verbessern, indem Sie im <a href='https://portal.efflux.de/' target='_blanke'>Kundenportal</a> eine Rezession schreiben, einen Fehler melden oder einen Feature-Request einreichen.]]>">
+  <!ENTITY database_en "<![CDATA[<li><i>None</i></li>]]>">
+  <!ENTITY database_de "<![CDATA[<li><i>Keine</i></li>]]>">
+  <!ENTITY database_uninstall_en "<![CDATA[<li><i>None</i></li>]]>">
+  <!ENTITY database_uninstall_de "<![CDATA[<li><i>Keine</i></li>]]>">
+  <!ENTITY deployment_en "<![CDATA[<li><i>Nothing</i> – ready to go!</li>]]>">
+  <!ENTITY deployment_de "<![CDATA[<li><i>Nichts</i> – alles bereit!</li>]]>">
+  <!ENTITY uninstall_en "<![CDATA[<li>Please restart your webserver.</li>]]>">
+  <!ENTITY uninstall_de "<![CDATA[<li>Bitte starten Sie Ihren Webserver neu.</li>]]>">
+  <!ENTITY feedback_en "<![CDATA[Help us improve this add-ons by writing a review, reporting a bug, or submitting a feature request on the <a href='https://portal.efflux.de/' target='_blank'><strong>Customer Portal</strong></a>.]]>">
+  <!ENTITY feedback_de "<![CDATA[Helfen Sie uns dieses Add-on zu verbessern, indem Sie im <a href='https://portal.efflux.de/' target='_blank'><strong>Kundenportal</strong></a> eine Rezession schreiben, einen Fehler melden oder einen Feature-Request einreichen.]]>">
   <!ENTITY css ".IntroInstall { color: #666666; background-color: #f5f5f5 !important; } .IntroInstall h2 { font-size: 2em; text-align: center } .IntroInstall h2 span { border-bottom: 1px solid #028b8b } span.CreatedAndMaintained { font-size: 0.8em }">
 ]>
 <otrs_package version="1.0">
@@ -18,14 +22,13 @@
   <Framework>6.0.x</Framework>
   <Vendor>Efflux GmbH</Vendor>
   <URL>https://efflux.de/</URL>
-  <BuildDate>2019-08-21</BuildDate>
+  <BuildDate>2019-08-28</BuildDate>
   <BuildHost>https://portal.efflux.de</BuildHost>
   <License>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</License>
   <Description Lang="en">&description_en;</Description>
   <Description Lang="de">&description_de;</Description>
-  <ChangeLog Version="6.0.1" Date="2019-08-21">Release for OTRS 6.</ChangeLog>
+  <ChangeLog Version="6.0.1" Date="2019-08-28">Release for OTRS 6.</ChangeLog>
   <Filelist>
-    <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/SystemConfiguration/Sidebar/OTRSBusinessTeaser.tt"/>
     <File Permission="660" Location="Kernel/Autoload/AdBlocker.pm"/>
     <File Permission="660" Location="Kernel/Config/Files/XML/AdBlocker.xml"/>
     <File Permission="660" Location="var/httpd/htdocs/skins/Agent/default/css/Core.AdBlocker.css"/>
@@ -36,9 +39,9 @@
     <strong>Functionality</strong><br>
     <p>]]>&description_en;<![CDATA[</p><br>
     <strong>Database changes</strong>
-    <p>]]>&database_en;<![CDATA[</p><br>
+    <ul>]]>&database_en;<![CDATA[</ul><br>
     <strong>To do before deployment</strong>
-    <p>]]>&deployment_en;<![CDATA[</p><br><br>
+    <ul>]]>&deployment_en;<![CDATA[</ul><br><br>
     <p>]]>&feedback_en;<![CDATA[</p><br><br>
     <p><a href='https://efflux.de/' target='_blank'><img alt='Efflux Logo' src=']]>&efflux_logo;<![CDATA['></a></p>
     <span class='CreatedAndMaintained'>Created and provided by Efflux GmbH</span>
@@ -49,11 +52,33 @@
     <strong>Funktionalität</strong><br>
     <p>]]>&description_de;<![CDATA[</p><br>
     <strong>Änderungen an der Datenbank</strong>
-    <p>]]>&database_de;<![CDATA[</p><br>
+    <ul>]]>&database_de;<![CDATA[</ul><br>
     <strong>Vor dem Einsatz zu erledigen</strong>
-    <p>]]>&deployment_de;<![CDATA[</p><br><br>
+    <ul>]]>&deployment_de;<![CDATA[</ul><br><br>
     <p>]]>&feedback_de;<![CDATA[</p><br><br>
     <p><a href='https://efflux.de/' target='_blank'><img alt='Efflux Logo' src=']]>&efflux_logo;<![CDATA['></a></p>
     <span class='CreatedAndMaintained'>Erstellt und bereitgestellt von Efflux GmbH</span>
   ]]></IntroInstall>
+  <IntroUninstall Type="pre" Title="&internal_name; uninstall" Lang="en"><![CDATA[
+    <style>]]>&css;<![CDATA[</style>
+    <h2><span>Are you sure that you want to uninstall the <strong>]]>&internal_name;<![CDATA[</strong> add-on?</span></h2><br>
+    <strong>Database changes</strong>
+    <ul>]]>&database_uninstall_en;<![CDATA[</ul><br>
+    <strong>To do after uninstalling</strong>
+    <ul>]]>&uninstall_en;<![CDATA[</ul><br><br>
+    <p>]]>&feedback_en;<![CDATA[</p><br><br>
+    <p><a href='https://efflux.de/' target='_blank'><img alt='Efflux Logo' src=']]>&efflux_logo;<![CDATA['></a></p>
+    <span class='CreatedAndMaintained'>Created and provided by Efflux GmbH</span>
+  ]]></IntroUninstall>
+  <IntroUninstall Type="pre" Title="&internal_name; deinstallieren" Lang="de"><![CDATA[
+    <style>]]>&css;<![CDATA[</style>
+    <h2><span>Sind Sie sicher, dass Sie das <strong>]]>&internal_name;<![CDATA[</strong> Add-on deinstallieren möchten?</span></h2><br>
+    <strong>Änderungen an der Datenbank</strong>
+    <ul>]]>&database_uninstall_de;<![CDATA[</ul><br>
+    <strong>Nach der Deinstallation zu erledigen</strong>
+    <ul>]]>&uninstall_de;<![CDATA[</ul><br><br>
+    <p>]]>&feedback_de;<![CDATA[</p><br><br>
+    <p><a href='https://efflux.de/' target='_blank'><img alt='Efflux Logo' src=']]>&efflux_logo;<![CDATA['></a></p>
+    <span class='CreatedAndMaintained'>Erstellt und bereitgestellt von Efflux GmbH</span>
+  ]]></IntroUninstall>
 </otrs_package>

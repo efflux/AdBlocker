@@ -16,6 +16,7 @@
 , .AdminSupportDataCollector .SidebarColumn li > form  /* AdminSupportDataCollector: Hide cloud service disabled warning. */
 , .AdminSupportDataCollector .SidebarColumn li > .FieldExplanation.Error
 , .OTRSVerifyLogoBig  /* Don't show the big verified logo. */
+, a[href$="Action=AdminSystemConfigurationDeploymentHistory;Subaction=DeploymentHistory"].CallForAction.OTRSBusinessRequired   /* AdminSystemConfigurationDeployment: Hide history button. */
 {
   display: none !important;
 }
