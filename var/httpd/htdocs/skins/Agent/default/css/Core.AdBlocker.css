@@ -15,6 +15,7 @@
 , #ExampleWebServices .FieldExplanation  /* AdminGenericInterfaceWebservice: Hide Ready2Adopt explanation. Files put in var/webservices/examples/*.yml will shown here. */
 , .AdminSupportDataCollector .SidebarColumn li > form  /* AdminSupportDataCollector: Hide cloud service disabled warning. */
 , .AdminSupportDataCollector .SidebarColumn li > .FieldExplanation.Error
+, #SupportBundleOptionsDialog .TableLike.SupportBundleSendFieldSet /* AdminSupportDataCollector: Don't send support packages to the OTRS group. */
 , .OTRSVerifyLogoBig  /* Don't show the big verified logo. */
 , a[href$="Action=AdminSystemConfigurationDeploymentHistory;Subaction=DeploymentHistory"].CallForAction.OTRSBusinessRequired   /* AdminSystemConfigurationDeployment: Hide history button. */
 {

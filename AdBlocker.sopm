@@ -20,14 +20,13 @@
   <Name>&internal_name;</Name>
   <Version>6.0.1</Version>
   <Framework>6.0.x</Framework>
+  <PackageIsDownloadable>0</PackageIsDownloadable>
   <Vendor>Efflux GmbH</Vendor>
   <URL>https://efflux.de/</URL>
-  <BuildDate>2019-08-28</BuildDate>
-  <BuildHost>https://portal.efflux.de</BuildHost>
   <License>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</License>
   <Description Lang="en">&description_en;</Description>
   <Description Lang="de">&description_de;</Description>
-  <ChangeLog Version="6.0.1" Date="2019-08-28">Release for OTRS 6.</ChangeLog>
+  <ChangeLog Version="6.0.1" Date="2019-08-31">Release for OTRS 6.</ChangeLog>
   <Filelist>
     <File Permission="660" Location="Kernel/Autoload/AdBlocker.pm"/>
     <File Permission="660" Location="Kernel/Config/Files/XML/AdBlocker.xml"/>
@@ -61,7 +60,7 @@
   ]]></IntroInstall>
   <IntroUninstall Type="pre" Title="&internal_name; uninstall" Lang="en"><![CDATA[
     <style>]]>&css;<![CDATA[</style>
-    <h2><span>Are you sure that you want to uninstall the <strong>]]>&internal_name;<![CDATA[</strong> add-on?</span></h2><br>
+    <h2><span>Are you sure you want to uninstall the <strong>]]>&internal_name;<![CDATA[</strong> add-on?</span></h2><br>
     <strong>Database changes</strong>
     <ul>]]>&database_uninstall_en;<![CDATA[</ul><br>
     <strong>To do after uninstalling</strong>
